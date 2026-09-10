@@ -60,4 +60,4 @@ dsa_highlights:
   peak_rating: 1692
   achievement: "Solved 470+ LeetCode problems with a peak contest rating of 1692"
 
-min_match_threshold: 70
+min_match_threshold: 50
