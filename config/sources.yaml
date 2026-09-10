@@ -1,0 +1,34 @@
+# Config-driven Job Source Connectors Configuration
+sources:
+  - id: "remoteok"
+    name: "RemoteOK API"
+    enabled: true
+    type: "api"
+    url: "https://remoteok.com/api"
+    categories: ["internship", "dev", "python", "java", "backend", "ml"]
+
+  - id: "internshala"
+    name: "Internshala Scraper"
+    enabled: true
+    type: "scraper"
+    base_url: "https://internshala.com"
+    search_keywords:
+      - "software-development"
+      - "java-development"
+      - "artificial-intelligence-ai"
+      - "machine-learning"
+      - "full-stack-development"
+
+  - id: "company_careers"
+    name: "Target Company Careers Feeds"
+    enabled: true
+    type: "careers_feed"
+    companies:
+      - name: "Google"
+        careers_url: "https://careers.google.com/api/v3/search/"
+      - name: "Microsoft"
+        careers_url: "https://careers.microsoft.com/us/en/search-results"
+      - name: "PayPal"
+        careers_url: "https://paypal.eightfold.ai/api/apply/v2/jobs"
+      - name: "CRED"
+        careers_url: "https://cred.club/careers"

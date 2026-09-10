@@ -1,0 +1,63 @@
+# Candidate Profile Configuration
+name: "SDE / AI-ML Candidate"
+email: "candidate@example.com"
+phone: "+91 9876543210"
+linkedin_url: "https://linkedin.com/in/example"
+github_url: "https://github.com/example"
+location: "India"
+education:
+  degree: "B.Tech CSE (AI & ML)"
+  year: "3rd Year"
+  college: "Tier-1/2 Engineering Institute"
+
+target_roles:
+  - "SDE Intern"
+  - "Software Engineering Intern"
+  - "AI/ML Intern"
+  - "Backend Developer Intern"
+  - "Full Stack Intern"
+  - "Software Developer Intern"
+
+target_companies:
+  - "Google"
+  - "Microsoft"
+  - "PayPal"
+  - "CRED"
+
+open_to_other_companies: true
+
+skills:
+  backend:
+    - "Java"
+    - "Spring Boot"
+    - "REST APIs"
+    - "Microservices"
+    - "Node.js"
+    - "SQL"
+    - "PostgreSQL"
+    - "MySQL"
+  ai_ml:
+    - "Python"
+    - "Machine Learning"
+    - "PyTorch"
+    - "TensorFlow"
+    - "Deep Learning"
+    - "NLP"
+    - "Scikit-Learn"
+    - "Pandas"
+    - "NumPy"
+  fullstack_dsa:
+    - "Data Structures & Algorithms"
+    - "DSA"
+    - "React"
+    - "JavaScript"
+    - "TypeScript"
+    - "Git"
+    - "System Design"
+
+dsa_highlights:
+  leetcode_solved: 470
+  peak_rating: 1692
+  achievement: "Solved 470+ LeetCode problems with a peak contest rating of 1692"
+
+min_match_threshold: 70

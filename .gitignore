@@ -1,0 +1,19 @@
+# Python virtual environment & cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Local environment secrets
+.env
+
+# SQLite Database & reports (local state)
+data/jobs.db
+reports/
+!reports/.gitkeep
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store

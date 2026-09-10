@@ -1,0 +1,33 @@
+Candidate Name
+3rd Year B.Tech CSE (AI & ML) Student
+Email: candidate@example.com | Phone: +91 9876543210
+LinkedIn: https://linkedin.com/in/example | GitHub: https://github.com/example
+
+PROFILE SUMMARY:
+Passionate 3rd-year Computer Science Engineering (AI & ML) student actively seeking Software Development Engineer (SDE) Intern and AI/ML Engineering Intern roles. Strong foundation in Java backend development, microservices, REST APIs, full-stack web development, and applied machine learning. Proven competitive programming and DSA problem-solving capabilities with 470+ LeetCode problems solved and a peak contest rating of 1692.
+
+TECHNICAL SKILLS:
+- Languages: Java, Python, C++, JavaScript, TypeScript, SQL
+- Backend & Frameworks: Spring Boot, Node.js, Express, RESTful APIs, Microservices Architecture
+- Machine Learning & AI: PyTorch, TensorFlow, Scikit-Learn, Pandas, NumPy, NLP, Deep Learning models
+- Web & Frontend: React, HTML5, CSS3, Tailwind CSS
+- Databases & Tools: PostgreSQL, MySQL, MongoDB, Redis, Git, Docker, Linux, Postman
+- Core CS Concepts: Data Structures & Algorithms (DSA), System Design, OOP, DBMS, Computer Networks, Operating Systems
+
+KEY HIGHLIGHTS & DSA ACHIEVEMENTS:
+- Solved 470+ problems on LeetCode with a peak contest rating of 1692 (Top ~10-15% globally).
+- Strong command over Data Structures, Graph Algorithms, Dynamic Programming, and System Design patterns.
+
+PROJECTS:
+1. AI-Powered Resume & Job Matcher System (Python, Machine Learning, NLP, FastAPI):
+   Built a machine learning system computing semantic similarity between candidate profiles and job descriptions using vector embeddings and TF-IDF scoring.
+
+2. High-Performance Java Backend Microservice (Java, Spring Boot, PostgreSQL, Redis):
+   Architected a scalable REST API service handling concurrent user requests with token authentication and cached response layers.
+
+3. Full-Stack Analytics Dashboard (React, Node.js, PostgreSQL):
+   Developed an interactive web dashboard visualizing real-time metrics with responsive charts and role-based authentication.
+
+EDUCATION:
+B.Tech in Computer Science Engineering (Specialization in Artificial Intelligence & Machine Learning)
+Expected Graduation: 2026 | Current Year: 3rd Year
