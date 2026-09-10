@@ -25,10 +25,16 @@ sources:
     type: "careers_feed"
     companies:
       - name: "Google"
-        careers_url: "https://careers.google.com/api/v3/search/"
+        careers_url: "https://www.google.com/about/careers/applications/jobs/results/?q=software%20engineer%20intern"
       - name: "Microsoft"
-        careers_url: "https://careers.microsoft.com/us/en/search-results"
+        careers_url: "https://careers.microsoft.com/v2/global/en/search?q=intern"
       - name: "PayPal"
-        careers_url: "https://paypal.eightfold.ai/api/apply/v2/jobs"
+        careers_url: "https://paypal.eightfold.ai/careers?query=intern"
       - name: "CRED"
         careers_url: "https://cred.club/careers"
+
+  - id: "web_search"
+    name: "Broad Web ATS Search"
+    enabled: true
+    type: "web_search"
+    platforms: ["Greenhouse", "Lever", "Workday", "SmartRecruiters"]

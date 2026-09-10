@@ -1,33 +1,58 @@
-Candidate Name
-3rd Year B.Tech CSE (AI & ML) Student
-Email: candidate@example.com | Phone: +91 9876543210
-LinkedIn: https://linkedin.com/in/example | GitHub: https://github.com/example
-
-PROFILE SUMMARY:
-Passionate 3rd-year Computer Science Engineering (AI & ML) student actively seeking Software Development Engineer (SDE) Intern and AI/ML Engineering Intern roles. Strong foundation in Java backend development, microservices, REST APIs, full-stack web development, and applied machine learning. Proven competitive programming and DSA problem-solving capabilities with 470+ LeetCode problems solved and a peak contest rating of 1692.
-
-TECHNICAL SKILLS:
-- Languages: Java, Python, C++, JavaScript, TypeScript, SQL
-- Backend & Frameworks: Spring Boot, Node.js, Express, RESTful APIs, Microservices Architecture
-- Machine Learning & AI: PyTorch, TensorFlow, Scikit-Learn, Pandas, NumPy, NLP, Deep Learning models
-- Web & Frontend: React, HTML5, CSS3, Tailwind CSS
-- Databases & Tools: PostgreSQL, MySQL, MongoDB, Redis, Git, Docker, Linux, Postman
-- Core CS Concepts: Data Structures & Algorithms (DSA), System Design, OOP, DBMS, Computer Networks, Operating Systems
-
-KEY HIGHLIGHTS & DSA ACHIEVEMENTS:
-- Solved 470+ problems on LeetCode with a peak contest rating of 1692 (Top ~10-15% globally).
-- Strong command over Data Structures, Graph Algorithms, Dynamic Programming, and System Design patterns.
-
-PROJECTS:
-1. AI-Powered Resume & Job Matcher System (Python, Machine Learning, NLP, FastAPI):
-   Built a machine learning system computing semantic similarity between candidate profiles and job descriptions using vector embeddings and TF-IDF scoring.
-
-2. High-Performance Java Backend Microservice (Java, Spring Boot, PostgreSQL, Redis):
-   Architected a scalable REST API service handling concurrent user requests with token authentication and cached response layers.
-
-3. Full-Stack Analytics Dashboard (React, Node.js, PostgreSQL):
-   Developed an interactive web dashboard visualizing real-time metrics with responsive charts and role-based authentication.
-
-EDUCATION:
-B.Tech in Computer Science Engineering (Specialization in Artificial Intelligence & Machine Learning)
-Expected Graduation: 2026 | Current Year: 3rd Year
+Sunav Sunil Mattoo
+Software Engineer | Backend Development | Data Structures & Algorithms
+Jammu, India | 9esunavmattoo@gmail.com | +91 9086791205 | linkedin.com/in/sunav-sunil-mattoo | github.com/sunav1411
+Professional Summary
+Third-year B.Tech (Artificial Intelligence and Machine Learning) student and full-stack/backend developer with strong foun-
+dations in Data Structures and Algorithms, Object-Oriented Programming, Software Engineering, and Database Management
+Systems. Skilled in designing and building scalable backend and full-stack applications using Java, Spring Boot, Apache Kafka,
+Redis, PostgreSQL, React, and REST APIs, with hands-on exposure to event-driven architecture, asynchronous processing, dis-
+tributed systems, and real-time applications. Solved 800+ Data Structures and Algorithms problems (peak LeetCode Contest
+Rating: 1692) across competitive programming platforms. Seeking Software Development Engineer (SDE) Intern and AI/ML
+Intern roles.
+Education
+VIT Bhopal University 2024 – 2028
+Bachelor of Technology (B.Tech), Artificial Intelligence and Machine Learning
+CGPA: 8.0 / 10.0
+Technical Skills
+Programming Languages: Java, C++, Python, JavaScript, SQL
+Software Engineering: Data Structures and Algorithms, Object-Oriented Programming (OOP), Object-Oriented Design,
+Design Patterns, Database Management Systems (DBMS), Operating Systems, Computer Networks, Software Development Life
+Cycle (SDLC), Problem Solving, Debugging and Troubleshooting
+Backend & Web Development: Spring Boot, REST API Development, FastAPI, React.js, Next.js, Node.js, Express.js,
+WebSocket, STOMP
+Distributed Systems: Apache Kafka, Redis, Event-Driven Architecture, Asynchronous Processing, Fault-Tolerant Systems,
+Distributed Computing, Real-Time Systems, Microservices Architecture
+Databases, Cloud & Tools: SQL, NoSQL, PostgreSQL, MongoDB, Firebase, Firestore, AWS (Academic Exposure), Git,
+GitHub, Postman, Visual Studio Code, Version Control
+Artificial Intelligence & Machine Learning: Generative AI, Large Language Model (LLM) Integration, AI-Powered De-
+velopment Tools, Machine Learning, Pandas, NumPy, Scikit-learn, TensorFlow, XGBoost, Prophet
+Projects
+CodeAscend AI — Competitive Programming and AI-Assisted Evaluation Platform
+• Built a competitive programming platform using Java 21, Spring Boot, React, Apache Kafka, Redis, and PostgreSQL, applying
+Object-Oriented Programming, layered architecture, software engineering principles, and RESTful backend design.
+• Architected a fault-tolerant, event-driven distributed system using Apache Kafka for asynchronous, non-blocking submission
+evaluation and a Redis ZSET-based leaderboard supporting ranked queries in O(log N) time.
+• Implemented an Elo rating engine with anti-farming safeguards and integrated LLM-powered agents for automated code
+review, algorithmic complexity analysis, and non-spoiler hints; version-controlled using Git and GitHub.
+VITHub — AI-Powered Campus Digital Twin
+• Developed a real-time campus platform using Next.js 16, Spring Boot 3.5 (Java 21), and PostgreSQL, implementing layered
+backend services across 16 normalized relational tables with Flyway-managed database migrations.
+• Engineered a WebSocket (STOMP) communication pipeline achieving sub-100ms state synchronization for live occupancy
+tracking, shuttle GPS/ETA updates, and library seat availability.
+• Implemented JWT authentication, role-based access control (RBAC), REST APIs, and Swagger/OpenAPI documentation,
+following maintainable software development and backend design practices.
+FinSight AI — AI-Powered Personal Finance Intelligence Platform
+• Developed a full-stack financial platform using Next.js, FastAPI, Firebase, and REST APIs for real-time expense tracking,
+budget management, and transaction analytics.
+• Built analytics services using Pandas, Scikit-learn, and Prophet for forecasting and anomaly detection; implemented Firebase
+Authentication, Firestore, and an LLM-powered financial copilot.
+Achievements
+• Solved 800+ Data Structures and Algorithms problems across LeetCode, CodeChef, GeeksforGeeks, and other competitive
+programming platforms.
+• Solved 470+ problems on LeetCode and achieved a peak LeetCode Contest Rating of 1692 across numerous contests, alongside
+a CodeChef Rating of 1556 and a DSA Rating of 1651, reflecting a strong passion for competitive programming.
+• Secured 2nd Rank in a college-wide Data Structures and Algorithms competition among 100+ participating teams.
+Certifications
+• Oracle AI Foundations Associate
+• JPMorgan Chase Software Engineering Job Simulation
+• HP LIFE Data Science and Analytics

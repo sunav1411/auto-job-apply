@@ -22,7 +22,12 @@ logger = logging.getLogger("AutoJobApply")
 
 from src.models import CandidateProfile, Job
 from src.database import DatabaseManager
-from src.connectors import RemoteOKConnector, InternshalaConnector, CompanyCareersConnector
+from src.connectors import (
+    RemoteOKConnector,
+    InternshalaConnector,
+    CompanyCareersConnector,
+    WebSearchConnector,
+)
 from src.matching.engine import MatchingEngine
 from src.drafting.generator import DraftGenerator
 from src.automation.form_filler import FormFiller
@@ -69,6 +74,7 @@ def run_pipeline(dry_run: bool = False, min_score: float = None):
         RemoteOKConnector(enabled=True),
         InternshalaConnector(enabled=True),
         CompanyCareersConnector(enabled=True),
+        WebSearchConnector(enabled=True),
     ]
 
     all_fetched_jobs = []
