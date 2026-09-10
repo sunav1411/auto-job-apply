@@ -38,3 +38,12 @@ sources:
     enabled: true
     type: "web_search"
     platforms: ["Greenhouse", "Lever", "Workday", "SmartRecruiters"]
+
+  - id: "linkedin"
+    name: "LinkedIn Public Job Search"
+    enabled: true
+    type: "scraper"
+    search_keywords:
+      - "Software Engineer Intern"
+      - "AI ML Intern"
+      - "Backend Developer Intern Java"

@@ -27,6 +27,7 @@ from src.connectors import (
     InternshalaConnector,
     CompanyCareersConnector,
     WebSearchConnector,
+    LinkedInConnector,
 )
 from src.matching.engine import MatchingEngine
 from src.drafting.generator import DraftGenerator
@@ -75,6 +76,7 @@ def run_pipeline(dry_run: bool = False, min_score: float = None):
         InternshalaConnector(enabled=True),
         CompanyCareersConnector(enabled=True),
         WebSearchConnector(enabled=True),
+        LinkedInConnector(enabled=True),
     ]
 
     all_fetched_jobs = []
