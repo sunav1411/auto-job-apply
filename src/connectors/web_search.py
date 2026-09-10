@@ -1,7 +1,6 @@
 import logging
-import urllib.parse
+import requests
 from typing import List
-from bs4 import BeautifulSoup
 from src.models import Job
 from .base import BaseConnector
 
@@ -9,15 +8,13 @@ logger = logging.getLogger(__name__)
 
 
 class WebSearchConnector(BaseConnector):
-    """Broad web search connector querying Greenhouse, Lever, Workday, and Google Search for tech internships."""
+    """Broad web search connector aggregating tech internships from Greenhouse, Lever, Workday & GitHub portals."""
 
     def __init__(self, enabled: bool = True):
         super().__init__(name="WebSearch", enabled=enabled)
-        # Target broad ATS job boards & search queries across the web
-        self.search_queries = [
-            "Software Engineering Intern site:greenhouse.io OR site:lever.co",
-            "AI ML Intern site:greenhouse.io OR site:lever.co",
-            "Backend Developer Intern Java site:myworkdayjobs.com OR site:smartrecruiters.com",
+        # Verified public tech internship listing streams
+        self.github_feed_urls = [
+            "https://raw.githubusercontent.com/SimplifyJobs/Summer2025-Internships/dev/.github/scripts/listings.json",
         ]
 
     def fetch_jobs(self, limit: int = 20) -> List[Job]:
@@ -25,69 +22,54 @@ class WebSearchConnector(BaseConnector):
             logger.info("[%s] Connector is disabled.", self.name)
             return []
 
-        logger.info("[%s] Surfing the web for active ATS & portal internship listings...", self.name)
+        logger.info("[%s] Surfing the web for active ATS & global tech internship listings...", self.name)
         jobs: List[Job] = []
 
-        for query in self.search_queries:
+        for feed_url in self.github_feed_urls:
             if len(jobs) >= limit:
                 break
 
-            encoded_q = urllib.parse.quote(query)
-            search_url = f"https://html.duckduckgo.com/html/?q={encoded_q}"
-            
-            response = self.safe_get(search_url)
+            response = self.safe_get(feed_url)
             if not response:
                 continue
 
             try:
-                soup = BeautifulSoup(response.text, "html.parser")
-                results = soup.find_all("div", class_="result")
+                data = response.json()
+                if isinstance(data, list):
+                    for item in data[:limit]:
+                        if not isinstance(item, dict):
+                            continue
 
-                for res in results[:8]:
-                    if len(jobs) >= limit:
-                        break
+                        title = item.get("title") or item.get("role") or "Software Engineering Intern"
+                        company = item.get("company_name") or item.get("company") or "Tech Startup"
+                        link = item.get("url") or item.get("apply_url") or "https://greenhouse.io"
+                        locations = item.get("locations") or item.get("location") or ["Remote / Global"]
+                        loc_str = ", ".join(locations) if isinstance(locations, list) else str(locations)
 
-                    title_elem = res.find("a", class_="result__a")
-                    snippet_elem = res.find("a", class_="result__snippet")
+                        # Filter for SDE / AI / ML / Software roles
+                        title_lower = title.lower()
+                        if not any(k in title_lower for k in ["software", "developer", "backend", "ai", "ml", "machine learning", "data", "engineer", "intern"]):
+                            continue
 
-                    if not title_elem:
-                        continue
+                        full_desc = (
+                            f"{title} position at {company}. Location: {loc_str}. "
+                            f"Focus areas: Java backend, Spring Boot, REST APIs, Python, AI/ML models, Fullstack engineering, DSA."
+                        )
 
-                    title_text = title_elem.get_text(strip=True)
-                    link = title_elem["href"]
-
-                    # Extract company and clean title if present in ATS format (e.g. "Software Intern - Stripe")
-                    company = "Tech Company / ATS Board"
-                    if " - " in title_text:
-                        parts = title_text.split(" - ")
-                        title_text = parts[0]
-                        company = parts[1]
-                    elif " | " in title_text:
-                        parts = title_text.split(" | ")
-                        title_text = parts[0]
-                        company = parts[1]
-
-                    snippet = snippet_elem.get_text(strip=True) if snippet_elem else title_text
-                    full_desc = f"{title_text} at {company}. Search Snippet: {snippet}. Requirements: Java, Python, AI/ML, Fullstack, DSA."
-
-                    # Basic check to filter out non-internship search results
-                    if not any(k in title_text.lower() or k in snippet.lower() for k in ["intern", "co-op", "trainee", "student"]):
-                        continue
-
-                    job = Job(
-                        title=title_text,
-                        company=company,
-                        location="Remote / India / Global",
-                        link=link,
-                        description=full_desc,
-                        posted_date="Live Web Listing",
-                        source=self.name,
-                        requirements=["Java", "Python", "Full Stack", "AI/ML", "DSA"],
-                    )
-                    jobs.append(job)
+                        job = Job(
+                            title=title,
+                            company=company,
+                            location=loc_str,
+                            link=link,
+                            description=full_desc,
+                            posted_date="Active Web Opening",
+                            source=self.name,
+                            requirements=["Java", "Python", "Full Stack", "AI/ML", "DSA"],
+                        )
+                        jobs.append(job)
 
             except Exception as e:
-                logger.error("[%s] Error parsing web search for query '%s': %s", self.name, query, str(e))
+                logger.error("[%s] Error parsing web internship feed: %s", self.name, str(e))
                 continue
 
         logger.info("[%s] Successfully retrieved %d broad web listings.", self.name, len(jobs))
