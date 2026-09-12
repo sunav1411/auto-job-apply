@@ -26,8 +26,56 @@ class MatchingEngine:
         self.target_roles = [r.lower() for r in self.profile.target_roles]
         self.target_companies = [c.lower() for c in self.profile.target_companies]
 
+    def _is_india_location(self, location: str) -> bool:
+        """Determines if a job location is in India or a flexible remote position compatible with India."""
+        if not location:
+            return True
+
+        loc_lower = location.lower()
+
+        # Explicit foreign indicators (countries, US states, foreign cities)
+        foreign_patterns = [
+            r"\b(usa|us|united states|uk|united kingdom|canada|germany|singapore|australia|france|japan)\b",
+            r"\b(london|toronto|oakville|chantilly|palo alto|cambridge|pleasant prairie|seattle|austin|new york|sf|san francisco)\b",
+            r"\b(wi|va|tx|ny|ma|wa|ca|il|fl|nc)\b",
+        ]
+
+        # Explicit Indian indicators
+        india_patterns = [
+            r"\b(india|in)\b",
+            r"\b(bengaluru|bangalore|gurugram|gurgaon|noida|hyderabad|pune|chennai|mumbai|delhi|dehradun|uttarakhand|ahmedabad|karnataka|telangana|maharashtra|tamil nadu|uttar pradesh|haryana|ncr)\b",
+        ]
+
+        has_india = any(re.search(pat, loc_lower) for pat in india_patterns)
+        has_foreign = any(re.search(pat, loc_lower) for pat in foreign_patterns)
+
+        if has_india:
+            return True
+
+        if has_foreign and not has_india:
+            return False
+
+        if "remote" in loc_lower or "anywhere" in loc_lower or "work from home" in loc_lower:
+            return True
+
+        return not has_foreign
+
     def score_job(self, job: Job) -> Tuple[float, MatchResult]:
         """Calculates 0-100 match score for a job posting."""
+        # 0. Location Filter Enforcement
+        if getattr(self.profile, "only_india_locations", True):
+            if not self._is_india_location(job.location):
+                logger.info("Skipping non-India location job: '%s' @ %s (%s)", job.title, job.company, job.location)
+                match_result = MatchResult(
+                    job_id=job.id,
+                    score=0.0,
+                    is_shortlisted=False,
+                    matched_skills=[],
+                    fit_reasons=["Filtered out: Non-India location"],
+                )
+                job.match_score = 0.0
+                return 0.0, match_result
+
         text_content = f"{job.title} {job.company} {job.location} {job.description} {' '.join(job.requirements)}".lower()
 
         # 1. Target Role Title Match (+25 points max)
@@ -100,3 +148,4 @@ class MatchingEngine:
             job.status = "SHORTLISTED"
 
         return final_score, match_result
+

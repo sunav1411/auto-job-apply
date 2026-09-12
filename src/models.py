@@ -46,6 +46,7 @@ class CandidateProfile(BaseModel):
     skills: Dict[str, List[str]] = Field(default_factory=dict)
     dsa_highlights: Dict[str, Any] = Field(default_factory=dict)
     min_match_threshold: float = 70.0
+    only_india_locations: bool = True
 
 
 class MatchResult(BaseModel):
