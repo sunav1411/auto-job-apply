@@ -1,5 +1,7 @@
 import logging
 import re
+import time
+from datetime import datetime
 from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -60,6 +62,66 @@ class MatchingEngine:
 
         return not has_foreign
 
+    def _is_fresh_posting(self, posted_date_str: str, max_hours: int = 48) -> bool:
+        """Determines if a job posting was created within max_hours (e.g. 24-48 hours ago)."""
+        if not posted_date_str:
+            return True
+
+        text = str(posted_date_str).strip().lower()
+
+        # Key phrases indicating recent / fresh posting
+        if any(k in text for k in ["just now", "today", "few hours", "recently", "active web opening", "live verified"]):
+            return True
+
+        if "yesterday" in text:
+            return True
+
+        # Check "X hours ago", "X mins ago", "X days ago"
+        hours_match = re.search(r"(\d+)\s*h(?:our)?s?\s*ago", text)
+        if hours_match:
+            return int(hours_match.group(1)) <= max_hours
+
+        mins_match = re.search(r"(\d+)\s*m(?:in)?s?\s*ago", text)
+        if mins_match:
+            return True
+
+        days_match = re.search(r"(\d+)\s*d(?:ay)?s?\s*ago", text)
+        if days_match:
+            days = int(days_match.group(1))
+            return days <= max(1, max_hours // 24)  # 48h = <= 2 days
+
+        weeks_match = re.search(r"(\d+)\s*w(?:eek)?s?\s*ago", text)
+        if weeks_match:
+            return False  # > 48 hours
+
+        months_match = re.search(r"(\d+)\s*m(?:onth)?s?\s*ago", text)
+        if months_match:
+            return False  # > 48 hours
+
+        # Check Epoch timestamp (seconds)
+        if text.isdigit() or (text.replace('.', '', 1).isdigit() and len(text) >= 10):
+            try:
+                ts = float(text)
+                now_ts = time.time()
+                age_hours = (now_ts - ts) / 3600.0
+                return 0 <= age_hours <= max_hours
+            except Exception:
+                pass
+
+        # Check ISO / YYYY-MM-DD Date
+        date_match = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", text)
+        if date_match:
+            try:
+                year, month, day = map(int, date_match.groups())
+                post_dt = datetime(year, month, day)
+                now_dt = datetime.now()
+                age_hours = (now_dt - post_dt).total_seconds() / 3600.0
+                return age_hours <= max_hours + 24  # Allow day boundary buffer
+            except Exception:
+                pass
+
+        return True
+
     def score_job(self, job: Job) -> Tuple[float, MatchResult]:
         """Calculates 0-100 match score for a job posting."""
         # 0. Location Filter Enforcement
@@ -75,6 +137,21 @@ class MatchingEngine:
                 )
                 job.match_score = 0.0
                 return 0.0, match_result
+
+        # 0b. Posting Age Filter Enforcement (Max 48 hours)
+        max_age = getattr(self.profile, "max_job_age_hours", 48)
+        if not self._is_fresh_posting(job.posted_date, max_hours=max_age):
+            logger.info("Skipping old job posting (>%dh ago): '%s' @ %s (Posted: %s)", max_age, job.title, job.company, job.posted_date)
+            match_result = MatchResult(
+                job_id=job.id,
+                score=0.0,
+                is_shortlisted=False,
+                matched_skills=[],
+                fit_reasons=[f"Filtered out: Posted > {max_age}h ago ({job.posted_date})"],
+            )
+            job.match_score = 0.0
+            return 0.0, match_result
+
 
         text_content = f"{job.title} {job.company} {job.location} {job.description} {' '.join(job.requirements)}".lower()
 

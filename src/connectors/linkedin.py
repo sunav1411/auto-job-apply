@@ -65,6 +65,13 @@ class LinkedInConnector(BaseConnector):
                     loc_elem = card.find("span", class_=lambda c: c and "job-search-card__location" in c)
                     location = loc_elem.get_text(strip=True) if loc_elem else "India / Remote"
 
+                    # Extract Posted Date
+                    time_elem = card.find("time")
+                    if time_elem:
+                        posted_date = time_elem.get_text(strip=True) or time_elem.get("datetime", "Recently")
+                    else:
+                        posted_date = "Recently"
+
                     # Extract Link
                     link_elem = card.find("a", class_=lambda c: c and "base-card__full-link" in c) or card.find("a", href=True)
                     link = link_elem["href"].split("?")[0] if link_elem and "href" in link_elem.attrs else "https://www.linkedin.com/jobs"
@@ -77,10 +84,11 @@ class LinkedInConnector(BaseConnector):
                         location=location,
                         link=link,
                         description=full_desc,
-                        posted_date="Recently on LinkedIn",
+                        posted_date=posted_date,
                         source=self.name,
                         requirements=["Java", "Python", "AI/ML", "Full Stack", "DSA"],
                     )
+
                     jobs.append(job)
 
             except Exception as e:

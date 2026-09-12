@@ -63,6 +63,10 @@ class InternshalaConnector(BaseConnector):
                     loc_elem = item.find(class_=lambda c: c and ("location" in c or "location_link" in c))
                     location = loc_elem.get_text(strip=True) if loc_elem else "India / Remote"
 
+                    # Posted Date / Status
+                    posted_elem = item.find(class_=lambda c: c and ("status-container" in c or "posted_by" in c or "status" in c))
+                    posted_date = posted_elem.get_text(strip=True) if posted_elem else "Recently"
+
                     # Details link
                     link_elem = item.find("a", href=True)
                     link = "https://internshala.com" + link_elem["href"] if link_elem and link_elem["href"].startswith("/") else (link_elem["href"] if link_elem else search_url)
@@ -75,10 +79,11 @@ class InternshalaConnector(BaseConnector):
                         location=location,
                         link=link,
                         description=desc,
-                        posted_date="Recently",
+                        posted_date=posted_date,
                         source=self.name,
                         requirements=["Java", "Python", "Full Stack", "AI/ML", "DSA"],
                     )
+
                     jobs.append(job)
 
             except Exception as e:

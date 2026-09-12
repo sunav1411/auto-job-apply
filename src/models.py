@@ -47,6 +47,7 @@ class CandidateProfile(BaseModel):
     dsa_highlights: Dict[str, Any] = Field(default_factory=dict)
     min_match_threshold: float = 70.0
     only_india_locations: bool = True
+    max_job_age_hours: int = 48
 
 
 class MatchResult(BaseModel):

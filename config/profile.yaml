@@ -62,3 +62,4 @@ dsa_highlights:
 
 min_match_threshold: 50
 only_india_locations: true
+max_job_age_hours: 48

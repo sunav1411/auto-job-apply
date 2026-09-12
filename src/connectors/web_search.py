@@ -51,6 +51,9 @@ class WebSearchConnector(BaseConnector):
                         if not any(k in title_lower for k in ["software", "developer", "backend", "ai", "ml", "machine learning", "data", "engineer", "intern"]):
                             continue
 
+                        posted_val = item.get("date_posted") or item.get("date_created") or item.get("date") or "Active Web Opening"
+                        posted_date = str(posted_val)
+
                         full_desc = (
                             f"{title} position at {company}. Location: {loc_str}. "
                             f"Focus areas: Java backend, Spring Boot, REST APIs, Python, AI/ML models, Fullstack engineering, DSA."
@@ -62,10 +65,11 @@ class WebSearchConnector(BaseConnector):
                             location=loc_str,
                             link=link,
                             description=full_desc,
-                            posted_date="Active Web Opening",
+                            posted_date=posted_date,
                             source=self.name,
                             requirements=["Java", "Python", "Full Stack", "AI/ML", "DSA"],
                         )
+
                         jobs.append(job)
 
             except Exception as e:
