@@ -6,6 +6,9 @@ on:
     - cron: '0 8 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -13,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -24,7 +29,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          playwright install chromium --with-deps
 
       - name: Execute Daily Internship Search Pipeline
         env:
@@ -35,7 +39,8 @@ jobs:
 
       - name: Commit Updated SQLite Database State
         run: |
-          git config --global user.name 'GitHub Actions Bot'
-          git config --global user.email 'actions@github.com'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/jobs.db reports/
           git diff --quiet && git diff --staged --quiet || (git commit -m "auto: update daily seen jobs database & digest reports [skip ci]" && git push)
+
